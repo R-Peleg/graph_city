@@ -1,1 +1,6 @@
-def hello := "world"
+/-
+Copyright (c) 2026 Reuven Peleg. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Reuven Peleg
+-/
+import GraphCity.Families.Basic
