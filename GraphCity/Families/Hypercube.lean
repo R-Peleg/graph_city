@@ -3,11 +3,22 @@ Copyright (c) 2026 Reuven Peleg. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Reuven Peleg
 -/
-import Mathlib.Combinatorics.SimpleGraph.Basic
-import Mathlib.Combinatorics.SimpleGraph.Finite
-import Mathlib.Combinatorics.SimpleGraph.Coloring.Vertex
-import Mathlib.Combinatorics.SimpleGraph.DegreeSum
-import Mathlib.Tactic.Ring
+module
+
+public import Mathlib.Combinatorics.SimpleGraph.Basic
+public import Mathlib.Combinatorics.SimpleGraph.Finite
+public import Mathlib.Combinatorics.SimpleGraph.Coloring.Vertex
+public import Mathlib.Combinatorics.SimpleGraph.DegreeSum
+public import Mathlib.Tactic.Ring
+
+/-!
+# Boolean hypercubes
+
+Vertex counts, degrees, and edge counts for Boolean vectors adjacent at exactly
+one coordinate.
+-/
+
+@[expose] public section
 
 /--
 The Hypercube: vertices are {0, 1} ^ n, edges connects u and v iff
@@ -21,12 +32,14 @@ abbrev graph (n : ℕ) : SimpleGraph (vertexType n) where
   Adj u v := ∃! i, u i ≠ v i
   symm := by
     constructor
-    · intro u v hi
-      grind
+    intro u v h
+    obtain ⟨i, hi, unique⟩ := h
+    exact ⟨i, Ne.symm hi, fun j hj ↦ unique j (Ne.symm hj)⟩
   loopless := by
     constructor
-    · intro u
-      simp
+    intro u h
+    obtain ⟨i, hi, _⟩ := h
+    exact hi rfl
 
 -- Provide decidability for the adjacency relation
 noncomputable instance (n : ℕ) : DecidableRel (graph n).Adj :=
