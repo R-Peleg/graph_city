@@ -1,0 +1,115 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
+version: v0.4
+
+project:
+  name: "GraphCity: complete graphs and Boolean hypercubes"
+  description: >-
+    Lean formalizations of standard properties of complete graphs and Boolean
+    hypercubes. For each natural number n, the complete graph on Fin n has n
+    vertices, binomial(n, 2) edges, and chromatic number n. The Boolean n-cube,
+    whose vertices are functions Fin n to Bool and whose adjacent vertices
+    differ in exactly one coordinate, has 2^n vertices, degree n at every
+    vertex, and n * 2^(n-1) edges. The statements include n = 0. Complete-graph
+    results specialize existing Mathlib theorems; the hypercube degree proof
+    constructs a bijection between coordinates and neighbors, and its edge
+    count follows from the degree-sum formula. No mathematical novelty is claimed.
+  authors: ["Reuven Peleg"]
+  responsible_maintainers: ["Reuven Peleg"]
+  license: Apache-2.0
+
+sources:
+  - title: "Standard complete-graph vertex count, edge count, and chromatic number"
+    type: folklore
+    relationship: formalizes
+    author_endorsement: n/a
+    note: >-
+      Standard finite graph facts. The proofs specialize Mathlib's
+      Fintype.card_fin, SimpleGraph.card_edgeFinset_top_eq_card_choose_two,
+      and SimpleGraph.chromaticNumber_top. No specific external source is
+      identified in the original repository.
+  - title: "Standard Boolean hypercube vertex count, degree, and edge count"
+    type: folklore
+    relationship: formalizes
+    author_endorsement: n/a
+    note: >-
+      Standard facts about the graph on Boolean vectors with Hamming distance
+      one. The repository proves the degree by a coordinate-flip bijection and
+      uses Mathlib's degree-sum theorem for the edge count. No claim of a new
+      mathematical result or of a proof following a particular text is made.
+
+related_formalizations:
+  - title: "Mathlib finite simple graphs and graph coloring"
+    id: https://github.com/leanprover-community/mathlib4
+    revision: 56a005855ea17e0b0958f73ec801ae140b0a1679
+    relationship: builds-on
+    note: >-
+      Uses the canonical Mathlib definitions, complete-graph counting and
+      coloring results, and the degree-sum theorem. This repository contains
+      the substantive GraphCity development, rather than a wrapper around a
+      separately maintained formalization.
+
+classification:
+  arxiv: [math.CO]
+  msc2020: ["05C07", "05C15"]
+
+status:
+  scope: >-
+    Six elementary finite-graph theorems, universally quantified over natural
+    dimensions, with no positivity assumptions. The project does not claim
+    new research results, hypercube chromatic numbers, or properties of other
+    graph families. Hypercube declarations retain their existing root names.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  main_results:
+    - declaration: GraphCity.Families.Complete.card_vertices
+      file: GraphCity/Families/Complete.lean
+      comparator_config: comparator.json
+    - declaration: GraphCity.Families.Complete.card_edges
+      file: GraphCity/Families/Complete.lean
+      comparator_config: comparator.json
+    - declaration: GraphCity.Families.Complete.chromatic_number
+      file: GraphCity/Families/Complete.lean
+      comparator_config: comparator.json
+    - declaration: card_vertices
+      file: GraphCity/Families/Hypercube.lean
+      comparator_config: comparator.json
+    - declaration: degree
+      file: GraphCity/Families/Hypercube.lean
+      comparator_config: comparator.json
+    - declaration: card_edges
+      file: GraphCity/Families/Hypercube.lean
+      comparator_config: comparator.json
+
+automation:
+  methods:
+    - method: other
+      tool_setup: >-
+        The production process of the original GraphCity proofs is not
+        documented in the repository; no manual-only or AI-free claim is made.
+    - method: agent
+      framework: OpenAI Codex
+      tool_setup: >-
+        Prepared the Palomar Challenge/Solution packaging, metadata, module
+        visibility migration, Lean/Mathlib upgrade, and preflight workflow.
+        Existing theorem arguments were retained, with compatibility fixes
+        where required. Uses Lean tactics including simp, ring, and omega.
+  notes: >-
+    Original proof authorship is credited in the existing source headers.
+    Historical tool use, costs, and prompts have not been reconstructed.
+
+fidelity:
+  divergences: >-
+    No claim of correspondence with a specific paper or textbook is made.
+    The edge counts concern unordered edges of simple graphs. The complete
+    graph chromatic number uses Mathlib's extended-natural-valued definition.
+    The hypercube edge formula uses natural subtraction, so the n = 0 case
+    evaluates to zero. Definitions are explicit and fully specified in the
+    Challenge, and its six proof holes are deliberate Comparator placeholders.
+
+review:
+  status: unchecked
+  notes: >-
+    No independent human mathematical review is documented in the repository.
+    Codex inspected the statements and existing proofs while preparing this
+    submission. Local builds and axiom checks do not constitute Palomar's full
+    mechanical verification or its editorial review. Registration is not claimed.

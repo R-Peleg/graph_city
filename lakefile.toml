@@ -1,7 +1,7 @@
 name = "GraphCity"
 version = "0.1.0"
 keywords = ["math"]
-defaultTargets = ["GraphCity"]
+defaultTargets = ["GraphCity", "Challenge", "Solution"]
 
 [leanOptions]
 pp.unicode.fun = true # pretty-prints `fun a ↦ b`
@@ -12,7 +12,13 @@ maxSynthPendingDepth = 3
 [[require]]
 name = "mathlib"
 scope = "leanprover-community"
-rev = "v4.33.1"
+rev = "56a005855ea17e0b0958f73ec801ae140b0a1679" # Mathlib v4.35.0
 
 [[lean_lib]]
 name = "GraphCity"
+
+[[lean_lib]]
+name = "Challenge"
+
+[[lean_lib]]
+name = "Solution"

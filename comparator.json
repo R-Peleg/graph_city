@@ -1,0 +1,13 @@
+{
+  "challenge_module": "Challenge",
+  "solution_module": "Solution",
+  "theorem_names": [
+    "GraphCity.Families.Complete.card_vertices",
+    "GraphCity.Families.Complete.card_edges",
+    "GraphCity.Families.Complete.chromatic_number",
+    "card_vertices",
+    "degree",
+    "card_edges"
+  ],
+  "permitted_axioms": ["propext", "Quot.sound", "Classical.choice"]
+}
